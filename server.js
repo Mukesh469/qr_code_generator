@@ -26,7 +26,6 @@ app.post("/generate", (req, res) => {
         message: `QR Code Generated`,
         file: `/qr/${name}.png`
     });
-
 });
 
 app.use("/qr", express.static("qr_images"));
