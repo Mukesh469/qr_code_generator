@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>QR Generator</title>
+</head>
+
+<body>
+    <h1>Create QR Code</h1>
+    <input id="url" placeholder="Enter URL" />
+    <button onclick="generateQR()">Generate</button>
+
+    <div id="output"></div>
+
+    <script>
+        async function generateQR() {
+            const url = document.getElementById("url").value;
+            const res = await fetch("/generate", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ url })
+            });
+
+            const data = await res.json();
+            document.getElementById("output").innerHTML = `
+            <p>Done! 🎉</p>
+            <img src="${data.file}" width="200"/>
+            <br><br>
+            <a href="${data.file}" download>
+                <button>Download QR</button>
+            </a>`;
+        }
+    </script>
+</body>
+</html>
